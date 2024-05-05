@@ -1,15 +1,14 @@
-function findMaxLength(nums) {
-  const map = new Map();
-  map.set(0, -1);
-  let count = 0;
-  let maxLength = 0;
-  for (let i = 0; i < nums.length; i++) {
-    count += nums[i] === 1 ? 1 : -1;
-    if (map.has(count)) {
-      maxLength = Math.max(maxLength, i - map.get(count));
-    } else {
-      map.set(count, i);
+function lengthOfLIS(nums) {
+  if (nums.length === 0) return 0;
+  const dp = new Array(nums.length).fill(1);
+  let max = 1;
+  for (let i = 1; i < nums.length; i++) {
+    for (let j = 0; j < i; j++) {
+      if (nums[i] > nums[j]) {
+        dp[i] = Math.max(dp[i], dp[j] + 1);
+        max = Math.max(max, dp[i]);
+      }
     }
   }
-  return maxLength;
+  return max;
 }
