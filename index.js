@@ -1,17 +1,17 @@
-function partitionLabels(s) {
-  const last = new Array(26);
-  for (let i = 0; i < s.length; i++) {
-    last[s.charCodeAt(i) - "a".charCodeAt(0)] = i;
-  }
-  let anchor = 0;
-  let j = 0;
+function permute(nums) {
   const result = [];
-  for (let i = 0; i < s.length; i++) {
-    j = Math.max(j, last[s.charCodeAt(i) - "a".charCodeAt(0)]);
-    if (i === j) {
-      result.push(i - anchor + 1);
-      anchor = i + 1;
+  backtrack([]);
+  return result;
+  function backtrack(current) {
+    if (current.length === nums.length) {
+      result.push([...current]);
+      return;
+    }
+    for (const num of nums) {
+      if (current.includes(num)) continue;
+      current.push(num);
+      backtrack(current);
+      current.pop();
     }
   }
-  return result;
 }
