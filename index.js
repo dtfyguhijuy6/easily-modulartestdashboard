@@ -1,17 +1,14 @@
-function permute(nums) {
+function productExceptSelf(nums) {
   const result = [];
-  backtrack([]);
-  return result;
-  function backtrack(current) {
-    if (current.length === nums.length) {
-      result.push([...current]);
-      return;
-    }
-    for (const num of nums) {
-      if (current.includes(num)) continue;
-      current.push(num);
-      backtrack(current);
-      current.pop();
-    }
+  let product = 1;
+  for (let i = 0; i < nums.length; i++) {
+    result[i] = product;
+    product *= nums[i];
   }
+  product = 1;
+  for (let i = nums.length - 1; i >= 0; i--) {
+    result[i] *= product;
+    product *= nums[i];
+  }
+  return result;
 }
